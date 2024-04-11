@@ -19,10 +19,11 @@ class StoreUpdateSupportRequest extends FormRequest
             'body' => ['required', 'min:3', 'max:10000']
         ];
 
-        if ($this->method() === 'PUT') {
+        if ($this->method() === 'PUT' || $this->method() === 'PATCH') {
+            $id = $this->id ?? $this->support;
             $rules = [
                 //"unique:supports,subject,{$this->id},id"
-                'subject' => ['required', 'min:3', 'max:255', "unique:supports,subject,{$this->id},id"],
+                'subject' => ['required', 'min:3', 'max:255', "unique:supports,subject,{$id},id"],
                 'body' => ['required', 'min:3', 'max:10000'],
                 // Rule::unique('supports')->ignore($this->id),
             ];
